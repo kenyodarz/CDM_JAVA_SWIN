@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="INFORME ANUAL" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d5dc2c6-f0be-49ba-a61a-6f7dbd9a52d9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CDM"/>
+	<style name="COLUMNA" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.25"/>
+			<leftPen lineWidth="0.25"/>
+			<bottomPen lineWidth="0.25"/>
+			<rightPen lineWidth="0.25"/>
+		</box>
+	</style>
+	<style name="DETALLE" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.25"/>
+			<leftPen lineWidth="0.25"/>
+			<bottomPen lineWidth="0.25"/>
+			<rightPen lineWidth="0.25"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="DATOS" uuid="1ffdd677-1bd8-4497-95b8-464179f7c90a">
+		<parameter name="INICIO_T" class="java.util.Date" isForPrompting="false">
+			<defaultValueExpression><![CDATA[new java.util.Date()]]></defaultValueExpression>
+		</parameter>
+		<parameter name="FIN_T" class="java.util.Date" isForPrompting="false">
+			<defaultValueExpression><![CDATA[new java.util.Date()]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT e.op, t.numeroserie, e.fecharecepcion, p.fechalaboratorio, c.nombrecliente, 
+t.fase, t.kvasalida, t.serviciosalida, e.lote FROM protocolos p
+INNER JOIN transformador t USING(idtransformador)
+INNER JOIN entrada e USING(identrada)
+INNER JOIN cliente c USING(idcliente)
+WHERE p.fechalaboratorio::date BETWEEN $P{INICIO_T} AND $P{FIN_T}
+ORDER BY t.serviciosalida, fechalaboratorio, t.numeroserie ASC]]>
+		</queryString>
+		<field name="op" class="java.lang.String"/>
+		<field name="numeroserie" class="java.lang.String"/>
+		<field name="fecharecepcion" class="java.sql.Timestamp"/>
+		<field name="fechalaboratorio" class="java.sql.Timestamp"/>
+		<field name="nombrecliente" class="java.lang.String"/>
+		<field name="fase" class="java.lang.Integer"/>
+		<field name="kvasalida" class="java.lang.Double"/>
+		<field name="serviciosalida" class="java.lang.String"/>
+		<field name="lote" class="java.lang.String"/>
+		<variable name="TOTAL_KVA" class="java.lang.Double" resetType="Group" resetGroup="SERVICIOS" calculation="Sum">
+			<variableExpression><![CDATA[$F{kvasalida}]]></variableExpression>
+		</variable>
+		<variable name="variable1" class="java.lang.String" incrementType="Group" incrementGroup="SERVICIOS" calculation="Sum">
+			<variableExpression><![CDATA[$V{SERVICIOS_COUNT}]]></variableExpression>
+		</variable>
+		<group name="SERVICIOS" isStartNewPage="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="100">
+			<groupExpression><![CDATA[$F{serviciosalida}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="INICIO" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="FIN" class="java.util.Date" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT 1]]>
+	</queryString>
+	<field name="?column?" class="java.lang.Integer"/>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" x="0" y="0" width="752" height="60" uuid="9a6f960f-6445-4bc1-8e22-31d905d474fc"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="DATOS" uuid="0a4687b1-0c5a-47ab-ac3a-91e17be58a31">
+						<datasetParameter name="INICIO_T">
+							<datasetParameterExpression><![CDATA[$P{INICIO}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="FIN_T">
+							<datasetParameterExpression><![CDATA[$P{FIN}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="752" uuid="5b991ad6-7f52-49a8-b47d-7bfd9c8ee58c">
+						<jr:groupFooter groupName="SERVICIOS">
+							<jr:cell style="COLUMNA" height="14" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="752" height="14" uuid="78dccbc7-a7c8-4840-851e-3c52e0576341"/>
+									<textElement verticalAlignment="Middle">
+										<font fontName="Enter Sansman" size="8"/>
+									</textElement>
+									<textFieldExpression><![CDATA["Total: "+$V{SERVICIOS_COUNT}+" | Total KVA: "+$V{TOTAL_KVA}]]></textFieldExpression>
+								</textField>
+							</jr:cell>
+						</jr:groupFooter>
+						<jr:columnGroup width="142" uuid="f4885ea9-cee0-45b0-8131-b004328b9e8c">
+							<property name="local_mesure_unitheight" value="pixel"/>
+							<jr:groupHeader groupName="SERVICIOS">
+								<jr:cell height="99" rowSpan="1">
+									<image hAlign="Center" vAlign="Middle">
+										<reportElement x="0" y="0" width="142" height="95" uuid="8d810b66-a8d5-47bc-ab23-121beb260758">
+											<property name="local_mesure_unitheight" value="pixel"/>
+											<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										</reportElement>
+										<imageExpression><![CDATA[getClass().getResource("/recursos/images/logo.png")]]></imageExpression>
+									</image>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:column width="30" uuid="bcab4eec-724f-4c75-bd1a-fe4a8a945a24">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="30" height="13" uuid="692d96ae-e8f1-42f0-a32a-534793d2daab"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[ITEM]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="30" height="14" uuid="35506045-b29b-457c-a5e6-692798080108"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="51" uuid="492941ab-dd9c-445b-91d7-8df0a7355c44">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="51" height="13" uuid="f0a951be-5516-49fc-b9f6-bf2e30e11175"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[ORDEN DE SERVICIO]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="51" height="14" uuid="5650410b-4251-4d4b-985c-16aac34c6739"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<textFieldExpression><![CDATA[$F{op}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="61" uuid="62532b42-e752-4224-a574-4da4fc66721f">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="61" height="13" uuid="6acdc626-603d-4e5d-94d3-95fb85bed5c9"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[No SERIE]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="61" height="14" uuid="f5c53272-978a-4e51-bf10-15f33d6704cc"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{numeroserie}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+						<jr:columnGroup width="610" uuid="fdb9abce-c640-486f-acc2-8d8b81555b24">
+							<property name="local_mesure_unitheight" value="pixel"/>
+							<jr:groupHeader groupName="SERVICIOS">
+								<jr:cell height="99" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="610" height="95" uuid="b9048023-1de7-47e6-b11f-ff8afc80dfbf">
+											<property name="local_mesure_unitheight" value="pixel"/>
+											<property name="com.jaspersoft.studio.unit.height" value="px"/>
+										</reportElement>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Enter Sansman" size="16"/>
+										</textElement>
+										<text><![CDATA[MANUAL DE PROCESOS DE PRODUCCION
+
+
+INFORME MENSUAL DE PRODUCCION]]></text>
+									</staticText>
+								</jr:cell>
+							</jr:groupHeader>
+							<jr:column width="54" uuid="42b59d77-eeea-40c5-a7d1-301199df844d">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="54" height="13" uuid="307ebe85-d262-428e-9678-d3a8b3fca455"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[FECHA RECIBIDO]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="54" height="14" uuid="fd39ea69-61a5-4aeb-892f-54e7c8e2d0e2"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yy").format($F{fecharecepcion})]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="54" uuid="f41c9e88-9cec-46c2-90d9-d3d7b1ef2f1f">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="54" height="13" uuid="34f2d122-f2df-441f-b832-80852b134faf"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[FECHA ALMACEN]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="54" height="14" uuid="47e6a14b-26a1-4ad7-9f50-1c67ba6c974f"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MMM-yy").format($F{fechalaboratorio})]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="24" uuid="72527911-598c-433b-8ee3-bc494ab82c16">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="24" height="13" uuid="e38f631e-cf24-4b88-9704-3aa0acdcb2b1"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman" size="9"/>
+											</textElement>
+											<text><![CDATA[FASE]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="24" height="14" uuid="0aad264d-29c4-4382-877e-d0c83fdfa070"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{fase}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="27" uuid="3acefb2d-75f3-4c3f-b0a6-9ab397325686">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="27" height="13" uuid="5a29be34-3930-416b-add3-af2d7741537f"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[KVA]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="27" height="14" uuid="4e854b9d-db83-461a-a58d-11d16d5e0a6e"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{kvasalida}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="90" uuid="dc938199-15be-4c74-8f61-ac66d27d5682">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="90" height="13" uuid="f0521d08-066d-45ea-8fef-fa0bef4a8f78"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[SERVICIO]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="90" height="14" uuid="241059b0-b4a1-4128-8fd9-4685044d3285"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="8" isBold="false"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{serviciosalida}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+							<jr:column width="361" uuid="5ca411eb-c021-488f-9e4a-c30644f54996">
+								<jr:groupHeader groupName="SERVICIOS">
+									<jr:cell style="COLUMNA" height="13" rowSpan="1">
+										<staticText>
+											<reportElement x="0" y="0" width="361" height="13" uuid="2f3b2947-656b-4431-8477-d7a169492e8f"/>
+											<textElement textAlignment="Center" verticalAlignment="Middle">
+												<font fontName="Enter Sansman"/>
+											</textElement>
+											<text><![CDATA[CLIENTE]]></text>
+										</staticText>
+									</jr:cell>
+								</jr:groupHeader>
+								<jr:detailCell style="DETALLE" height="14" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="361" height="14" uuid="37d03f61-4b4c-4501-afc7-1d0ee79d6f21"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
+							</jr:column>
+						</jr:columnGroup>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="569" y="10" width="183" height="10" uuid="513299b4-438f-4519-8a40-9215a24446ea"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RMPP-01-01-01 | V. 03 | 11/02/2017"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="633" y="0" width="102" height="10" uuid="cca33187-aba0-45c2-81c5-d397786ad126"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="712" y="0" width="40" height="10" uuid="78e433a5-3108-42e6-9410-dad4f63c1883"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="10" width="283" height="10" uuid="4e1d6181-3716-42e3-9ed9-d315117975eb"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha y hora de impresion: "+new SimpleDateFormat("EEE, d MMM yyyy hh:mm a").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

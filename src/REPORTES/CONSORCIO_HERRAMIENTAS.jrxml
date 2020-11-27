@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ConsorcioRetono" pageWidth="612" pageHeight="792" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6569b73d-ad90-4959-abb8-76b9832009dd">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<style name="table_TH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.125" lineColor="#000000"/>
+			<bottomPen lineWidth="0.125" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#F0F8FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="tabla">
+		<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+			<topPen lineWidth="0.125"/>
+			<leftPen lineWidth="0.125"/>
+			<bottomPen lineWidth="0.125"/>
+			<rightPen lineWidth="0.125"/>
+		</box>
+	</style>
+	<subDataset name="Herramientas" uuid="b67a1454-55d6-43e5-9691-80ad762cfda0">
+		<parameter name="IDREMISION_TABLA" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT * FROM datosremision_consorcio d
+ RIGHT JOIN herramientaconsorcio h USING(idherramienta)
+ WHERE d.idremision=$P{IDREMISION_TABLA} ORDER BY nombreherramienta]]>
+		</queryString>
+		<field name="idherramienta" class="java.lang.Integer"/>
+		<field name="item" class="java.lang.Integer"/>
+		<field name="idremision" class="java.lang.Integer"/>
+		<field name="cantidad" class="java.lang.Integer"/>
+		<field name="nombreherramienta" class="java.lang.String"/>
+		<field name="codigoherramienta" class="java.lang.String"/>
+		<field name="tipoherramienta" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="IDREMISION" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT * FROM remision r INNER JOIN cliente c USING(idcliente) WHERE idremision=$P{IDREMISION}]]>
+	</queryString>
+	<field name="idcliente" class="java.lang.Integer"/>
+	<field name="idremision" class="java.lang.Integer"/>
+	<field name="iddespacho" class="java.lang.Integer"/>
+	<field name="numero_remision" class="java.lang.String"/>
+	<field name="cliente_remision" class="java.lang.String"/>
+	<field name="ciudad_remision" class="java.lang.String"/>
+	<field name="destino_remision" class="java.lang.String"/>
+	<field name="telefono_remision" class="java.lang.String"/>
+	<field name="contrato_remision" class="java.lang.String"/>
+	<field name="centrodecostos_remision" class="java.lang.String"/>
+	<field name="conductor_remision" class="java.lang.String"/>
+	<field name="cedula_remision" class="java.lang.String"/>
+	<field name="placa_remision" class="java.lang.String"/>
+	<field name="fecha_remision" class="java.sql.Timestamp"/>
+	<field name="tipo_remision" class="java.lang.String"/>
+	<field name="servicio_remision" class="java.lang.String"/>
+	<field name="descripcion_remision" class="java.lang.String"/>
+	<field name="factura_numero" class="java.lang.String"/>
+	<field name="empresa_remision" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="fechacreacion" class="java.sql.Timestamp"/>
+	<field name="idusuario" class="java.lang.Integer"/>
+	<field name="empresatransportadora" class="java.lang.String"/>
+	<field name="responsable" class="java.lang.String"/>
+	<field name="nombrecliente" class="java.lang.String"/>
+	<field name="nitcliente" class="java.lang.String"/>
+	<field name="representante" class="java.lang.String"/>
+	<pageHeader>
+		<band height="191" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="292" y="96" width="280" height="70" uuid="41dbd8a3-ca69-47f7-9682-c9853222816e"/>
+				<graphicElement>
+					<pen lineWidth="0.125" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="0" y="96" width="280" height="95" uuid="b6cb6015-c3e0-42d0-ba7d-c992e7e38eab"/>
+				<graphicElement>
+					<pen lineWidth="0.125" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="0" y="96" width="280" height="15" backcolor="#BFE1E1" uuid="c918caa8-6039-4bde-865b-0ae6ed545398"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="437" y="2" width="133" height="77" uuid="1e3c526b-4f44-4bb9-942d-d643158eb713"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</rectangle>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="87" height="80" uuid="53c4dfab-bdc2-4362-88cb-1b37a0609574"/>
+				<imageExpression><![CDATA[getClass().getResource("/recursos/images/LOGO CONSORCIO.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="439" y="59" width="38" height="20" uuid="2217c243-93ba-43c4-b566-09dec0dfc2eb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="36" width="260" height="11" uuid="7005e7eb-d463-4757-b2c8-b6c016e40087"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Franklin Gothic Medium" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autopista a San Antonio Km. 3 Lomitas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="66" width="260" height="11" uuid="214005d0-a9c1-42ac-9cfa-3de8ce205c51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Franklin Gothic Medium" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIT: 900.342.895-7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="46" width="260" height="11" uuid="db8b542a-f195-4c40-94a1-bdf718c9d579"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Franklin Gothic Medium" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Villa del Rosario, Norte de Santander - Colombia.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="0" width="260" height="34" uuid="1be47755-f6ba-4d4e-8ef4-65ac74569dde"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Enter Sansman" size="13" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CDM MANTENIMIENTO Y SERVICIOS LTDA]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="477" y="59" width="93" height="20" uuid="e8c36bbb-785b-472c-89fe-9785fac928fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_remision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="34" width="133" height="25" uuid="f1d43b02-5d50-4fb5-b70b-42afa4abfb42"/>
+				<box>
+					<topPen lineWidth="0.125"/>
+					<bottomPen lineWidth="0.125"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["N° "+(($F{numero_remision}.length()==1)?"00":"0")+$F{numero_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="125" y="56" width="260" height="11" uuid="530c4fb2-8841-49cb-a204-61df4de9a3fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Franklin Gothic Medium" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tel.: (7) 5732010 - 5732013 - 5732014]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="151" width="206" height="13" uuid="a3396419-a6fa-4d74-b687-cde0fa1a4faf"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono_remision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="138" width="139" height="13" uuid="44327d2d-5bc3-4ed1-85bb-fd12943e84d3"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="112" width="40" height="13" uuid="05dfdc67-f14b-4485-80d2-cfd4193243d1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPRESA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="112" width="44" height="13" uuid="12075c9f-7d77-440d-95ea-7b829773b7dd">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPRESA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="350" y="125" width="217" height="13" uuid="b9d43dc1-1ae7-422e-aacc-b0eaecd70f80"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conductor_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="138" width="48" height="13" uuid="d8686293-b618-49f9-870a-b4cc712421c5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="69" y="112" width="206" height="13" uuid="78cac04f-07fe-413f-b941-df3b7adc4565"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_remision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="138" width="206" height="13" uuid="5d7d92ab-b9de-401f-9713-d01b94645ce8"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destino_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="5" y="96" width="270" height="15" uuid="821f2d4e-e7ad-4c7f-a1f2-5662c0b22bed">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL DESTINATARIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="125" width="64" height="13" uuid="c30eef34-ff94-41e0-a884-b1ebe3beb373">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIT / CEDULA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="151" width="44" height="13" uuid="4dd5a73b-391a-48d8-a84d-76c66d0152ee">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="125" width="53" height="13" uuid="06416cbb-ae4c-4e96-b1ab-57c12db0bb81">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONDUCTOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="337" y="112" width="230" height="13" uuid="061bba22-1098-46c6-83f8-f75c59243ad2"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresatransportadora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="125" width="98" height="13" uuid="4a2c8999-ef74-4028-a4f1-17b7ba76d7f7"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nitcliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="138" width="36" height="13" uuid="98d0ebb9-27c9-4520-8cce-1e486efafa4e">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="437" y="2" width="133" height="32" uuid="10ce9d9e-4786-4bd6-a74d-1f443b07cdb2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{tipo_remision}.equals("CON RETORNO"))?"REMISION RETORNO":"REMISION"]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement mode="Opaque" x="292" y="96" width="280" height="15" backcolor="#BFE1E1" uuid="ea6d9510-fb15-40b4-a91e-8b1d760966ee"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="297" y="96" width="273" height="15" uuid="26773ffd-0f28-4387-9cfa-6d85568b6930">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL TRANSPORTADOR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="164" width="206" height="13" uuid="97dfba56-1d71-4a65-8948-47b231a5dfb6"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciudad_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="164" width="44" height="13" uuid="5b9582e6-ac5d-4ce2-83b1-9f804c83042a">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIUDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="297" y="151" width="73" height="13" uuid="eb83c59d-2214-494f-9c5a-ac61b3c011dd">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PLACA VEHICULO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="151" width="197" height="13" uuid="d51b27d2-2f52-4cb2-a7e0-5a48c8c9d72e"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{placa_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="177" width="60" height="13" uuid="1eb973cc-de09-4822-93a0-ac760da0f09c">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="177" width="206" height="13" uuid="6800a920-b412-4260-8285-b9cdfce63a02"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Ebrima" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="tabla" x="0" y="0" width="572" height="0" uuid="963a6efc-0437-4aed-a37c-182da67460f1"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Herramientas" uuid="326ee777-c1ba-4b21-94ae-42cdd3100413">
+						<datasetParameter name="IDREMISION_TABLA">
+							<datasetParameterExpression><![CDATA[$P{IDREMISION}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="6a779bf6-b4cd-42b4-b89e-eeba68c6db62">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="20" uuid="c8de2783-b77b-420a-b0ff-7a8abac6ecef"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Enter Sansman" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ITEM]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_CH" height="15" rowSpan="1">
+							<textField>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="15" uuid="018d52ef-8132-4c73-bfc6-9e80770a2ec6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="88" uuid="c5538ba2-f9f0-4827-8a32-bf90be8a995b">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="88" height="20" uuid="f819dc40-f411-467a-8f0f-5089a8fffb66"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Enter Sansman" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CODIGO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_CH" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="88" height="15" uuid="173a994f-8f5d-45fa-a34f-162501efa824"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{codigoherramienta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="340" uuid="aa9769d6-e101-4175-91ed-a74b74960540">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="340" height="20" uuid="0e94dcce-7f65-40c9-8e87-20c6232e551a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Enter Sansman" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIPCION]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_CH" height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="340" height="15" uuid="7c34c06b-548a-4b4b-8f74-cb916b9ebfaa"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nombreherramienta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="60" uuid="d962d216-8ff9-456e-9a16-4b3263f6e0a5">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="20" uuid="49ad4c70-f6eb-4df4-8174-0055a2edeb85"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Enter Sansman" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CANTIDAD]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_CH" height="15" rowSpan="1">
+							<textField>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="60" height="15" uuid="028cfc13-8a8a-49fd-af16-28a255aeadb0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="49" uuid="219ed1d8-4439-46c1-af88-c176bd8be089">
+						<jr:columnHeader style="table_TH" height="20" rowSpan="1">
+							<box>
+								<topPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="49" height="20" uuid="691e4ce8-cfa1-40f8-96b3-ebd8b15c286f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Enter Sansman" isBold="true"/>
+								</textElement>
+								<text><![CDATA[UNIDAD]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_CH" height="15" rowSpan="1">
+							<textField>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="49" height="15" uuid="a2ef45df-4090-4b04-8487-2313f5af4425"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tipoherramienta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="24">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="5" width="559" height="14" uuid="f61e10f0-56c2-4f15-9c99-7b1b020faa40"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion_remision}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="265" y="1" width="298" height="13" uuid="355b460e-3cdf-45df-b009-a414da6034f9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="1" width="40" height="13" uuid="aabe3992-c684-4365-83c6-e95e4a6ae946"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="108" height="13" uuid="eca78d00-78b2-48ed-8602-4918fbac6c66"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de impresión:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="100" y="1" width="356" height="13" uuid="fe25224e-fa41-4ea1-b9f9-06893fa35c29"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="55">
+			<line>
+				<reportElement x="0" y="15" width="180" height="1" uuid="edc1b42d-fdd2-4fd8-8d59-36865341273a"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="198" y="15" width="202" height="1" uuid="03bd7b7c-c938-4c4c-9702-29a9a0ed24a6"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="416" y="15" width="156" height="1" uuid="38830fc0-390c-4246-991f-168892d5a30c"/>
+				<graphicElement>
+					<pen lineWidth="0.125"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="16" width="180" height="13" uuid="5450687d-3558-4431-9c82-3fa361da9636"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ELABORÓ / ALMACEN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="198" y="16" width="202" height="13" uuid="e505b0cc-2941-44cd-a201-0926ee6dd066"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBIDO POR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="16" width="156" height="13" uuid="d5bc22f6-c6e2-4dba-af49-bd9fd3ad273f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUTORIZADO POR:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="255" y="41" width="309" height="13" uuid="046528f5-8d8f-4eef-86ca-c935de66b8d7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="532" y="41" width="40" height="13" uuid="b6d108ea-7023-49cc-ae81-bade150c5f9b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="416" y="28" width="154" height="13" uuid="b45e27e8-26c9-4caf-862c-d1b540433c72"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MARIA BELEN REYES MENDEZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="180" height="13" uuid="83762566-5b5b-4d1d-9dd8-50887d770513"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RODRIGO PEÑUELA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="29" width="202" height="12" uuid="971bfe12-e21e-47c0-8084-a344156f3ec4"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Dotted"/>
+					<topPen lineWidth="0.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente_remision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="41" width="108" height="13" uuid="2edae75a-92e4-4cf3-89ec-50557849bdb1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de impresión:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="101" y="41" width="356" height="13" uuid="e5aa8b6c-8b39-4e22-a726-a4e4ed179d74"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

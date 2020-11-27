@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CLIENTES" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a895394-0da4-4aed-8f49-a08869a0bad9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<template><![CDATA["Estilos.jrtx"]]></template>
+	<style name="table" radius="10"/>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" radius="10">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF" radius="10">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF" radius="10">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="USUARIOS" uuid="e77653d4-3fd7-420f-ada3-b171f6917dd3">
+		<queryString>
+			<![CDATA[SELECT cedula, nombre, apellido, telefono, direccion, correo, fechanacimiento, fecharegistro, foto FROM usuario ORDER BY nombre ASC]]>
+		</queryString>
+		<field name="cedula" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="apellido" class="java.lang.String"/>
+		<field name="telefono" class="java.lang.String"/>
+		<field name="direccion" class="java.lang.String"/>
+		<field name="correo" class="java.lang.String"/>
+		<field name="fechanacimiento" class="java.sql.Date"/>
+		<field name="fecharegistro" class="java.sql.Timestamp"/>
+		<field name="foto" class="java.io.InputStream"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT logo, nombregym FROM config]]>
+	</queryString>
+	<field name="logo" class="java.io.InputStream"/>
+	<field name="nombregym" class="java.lang.String"/>
+	<title>
+		<band height="127" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="21" width="106" height="106" uuid="6b91b405-974c-4e30-9f0e-ff8de687c5ec"/>
+				<imageExpression><![CDATA[$F{logo}]]></imageExpression>
+			</image>
+			<textField pattern="">
+				<reportElement style="Titulo" mode="Opaque" x="120" y="21" width="435" height="104" uuid="e7f2f734-f0bf-42b7-9fd3-4f6236972e3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Enter Sansman" size="34"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombregym}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Left" vAlign="Bottom">
+				<reportElement x="0" y="0" width="555" height="30" uuid="03519194-f984-4cfc-a934-6abd4f5322cf"/>
+				<imageExpression><![CDATA[getClass().getResource("/reportes/arriba.png")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="21">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="21" uuid="f72b8aad-5d69-44ed-878d-142082594f28"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="USUARIOS" uuid="41df6290-9361-4ea0-a413-b08de9782a1d">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="25" uuid="7f8d0e67-3113-4ecf-9362-db26797b3179">
+						<jr:detailCell style="table_TD" height="85" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="25" height="85" uuid="9be22ba6-4d1c-4112-aecb-fbdd29177145"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="95" uuid="e87f378b-9f8e-4433-8d1f-cce7660d9852">
+						<jr:detailCell style="table_TD" height="85" rowSpan="1">
+							<image hAlign="Center" vAlign="Middle">
+								<reportElement x="0" y="3" width="95" height="79" uuid="ff769d0d-68c3-4426-b5d9-1a2a0ac4711c"/>
+								<imageExpression><![CDATA[$F{foto}]]></imageExpression>
+							</image>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="435" uuid="dc4c7081-a23b-4349-b1e5-b45768f9ffc6">
+						<jr:detailCell style="table_TD" height="85" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="435" height="14" uuid="68ab1ff8-6f3f-46ea-8e7c-e0042144917c"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["N° de identificacion: "+$F{cedula}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="14" width="435" height="14" uuid="ff03bfd6-7c0a-4bc2-a962-528c74f214ab"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Nombre: "+$F{nombre}+" "+$F{apellido}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="28" width="435" height="14" uuid="19854c00-efe9-454f-b176-72a3da6ab509"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Telefono: "+$F{telefono}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="42" width="435" height="14" uuid="ff767614-7ce4-4851-8825-5958182559df"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Direccion: "+$F{direccion}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="56" width="435" height="14" uuid="852e96a7-9acf-4c1e-8cd6-613276322e96"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Email: "+$F{correo}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="70" width="435" height="14" uuid="9487ea2f-330a-449d-94c7-055dae6b904d"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma"/>
+								</textElement>
+								<textFieldExpression><![CDATA["Fecha de nacimiento: "+$F{fechanacimiento}+"     Fecha de ingreso: "+$F{fecharegistro}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<image hAlign="Left" vAlign="Bottom">
+				<reportElement x="0" y="0" width="555" height="30" uuid="ea41a7a7-b831-4b4c-a63c-32c6aef6f774"/>
+				<imageExpression><![CDATA[getClass().getResource("/reportes/abajo.png")]]></imageExpression>
+			</image>
+			<textField pattern="EEE, d MMM yyyy hh:mm aa">
+				<reportElement x="25" y="1" width="279" height="13" uuid="7e3e8d22-926a-4e9a-a497-dae729ed4a5f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha y hora de impresion: "+new SimpleDateFormat("EEE, d MMM yyyy hh:mm aa").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="1" width="147" height="13" uuid="aa2b67e6-4864-461b-aa0e-774f42dfb757"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="517" y="1" width="38" height="13" uuid="e7a2912a-c88a-4657-95f5-3b8db9d4817c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

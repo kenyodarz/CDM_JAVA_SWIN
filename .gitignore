@@ -1,0 +1,50 @@
+HELP.md
+target/
+out/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/misc.xml
+ERORR.txt
+ERORR.txt
+10_09_2019.sql
+21_09_2019.sql
+Control total.xlsx
+FOTOS TRAFOS/COMPAÑIA ENERGETICA DE OCCIDENTE S.A.S. E.S.P/(626) 1-19-5/2017010346_java-minimalism-wide-1920x1080.jpg.jpg
+FOTOS TRAFOS/ELECTRIFICADORA DE SANTANDER S.A. E.S.P/(598) 1-19-11/189390_LOGO CONSORCIO.png.png
+FOTOS TRAFOS/ELECTRIFICADORA DE SANTANDER S.A. E.S.P/(598) 1-19-11/2010060767_LOGO NUEVO.png.png
+MODELO ENTIDAD RELACION/Tabla entrada(Lote).png
+MODELO ENTIDAD RELACION/Tabla transformador.png
+*.xlsx
+*.pdf
+*.jasper

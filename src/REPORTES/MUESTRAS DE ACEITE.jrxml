@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MUESTRA DE ACEITES" language="groovy" columnCount="2" pageWidth="612" pageHeight="792" columnWidth="291" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15" uuid="38b52eaa-2a46-4d6e-ac7b-872ab1db742d">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="ORDEN" class="java.lang.Boolean" isForPrompting="false">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SQLORDEN" class="java.lang.String">
+		<defaultValueExpression><![CDATA[($P{ORDEN}.equals( true ))?"fase ASC, kvaentrada ASC, marca":"item"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IDENTRADA" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[201]]></defaultValueExpression>
+	</parameter>
+	<parameter name="OT" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FECHA" class="java.lang.String"/>
+	<parameter name="MUESTREADO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECt * FROM transformador WHERE identrada=$P{IDENTRADA} ORDER BY $P{SQLORDEN}]]>
+	</queryString>
+	<field name="idtransformador" class="java.lang.Integer"/>
+	<field name="item" class="java.lang.Integer"/>
+	<field name="numeroempresa" class="java.lang.String"/>
+	<field name="numeroserie" class="java.lang.String"/>
+	<field name="marca" class="java.lang.String"/>
+	<field name="kvaentrada" class="java.lang.Double"/>
+	<field name="kvasalida" class="java.lang.Double"/>
+	<field name="fase" class="java.lang.Integer"/>
+	<field name="tpe" class="java.lang.Integer"/>
+	<field name="tse" class="java.lang.Integer"/>
+	<field name="tte" class="java.lang.Integer"/>
+	<field name="tps" class="java.lang.Integer"/>
+	<field name="tss" class="java.lang.Integer"/>
+	<field name="tts" class="java.lang.Integer"/>
+	<field name="aat" class="java.lang.String"/>
+	<field name="abt" class="java.lang.String"/>
+	<field name="hat" class="java.lang.String"/>
+	<field name="hbt" class="java.lang.String"/>
+	<field name="ci" class="java.lang.Boolean"/>
+	<field name="ce" class="java.lang.Boolean"/>
+	<field name="herraje" class="java.lang.String"/>
+	<field name="ano" class="java.lang.Integer"/>
+	<field name="peso" class="java.lang.Integer"/>
+	<field name="aceite" class="java.lang.Integer"/>
+	<field name="observacionentrada" class="java.lang.String"/>
+	<field name="observacionsalida" class="java.lang.String"/>
+	<field name="servicioentrada" class="java.lang.String"/>
+	<field name="serviciosalida" class="java.lang.String"/>
+	<field name="tipotrafoentrada" class="java.lang.String"/>
+	<field name="tipotrafosalida" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="identrada" class="java.lang.Integer"/>
+	<field name="iddespacho" class="java.lang.Integer"/>
+	<field name="idremision" class="java.lang.Integer"/>
+	<field name="causadefalla" class="java.lang.String"/>
+	<variable name="OTT" class="java.lang.Integer"/>
+	<detail>
+		<band height="95" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="99" y="13" width="85" height="77" uuid="2a2a1d5d-33df-4d9e-b1fe-1b73eb08918a"/>
+				<imageExpression><![CDATA["IMAGENES\\LOGO MARCA DE AGUA.png"]]></imageExpression>
+			</image>
+			<rectangle radius="0">
+				<reportElement mode="Transparent" x="1" y="1" width="288" height="92" uuid="4a44a9b5-b00e-442c-aa73-8c5a5d21558d"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="1" width="145" height="12" uuid="02843b28-05d7-4e4a-9168-75a9a1d087de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Enter Sansman"/>
+				</textElement>
+				<text><![CDATA[CDM TRANSFORMADORES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="1" width="145" height="12" uuid="722c709a-0b3d-4bb9-9a4e-ee4b2e0e86f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Enter Sansman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MUESTRA # "+$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="15" width="46" height="13" uuid="cc7de0ea-06a5-47e9-b6aa-617fe111674e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[O.T:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="28" width="46" height="13" uuid="34aa9080-359b-4822-a439-d6f885e88cec"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EQUIPO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="54" width="46" height="13" uuid="33ceecdb-5713-4a71-93dc-cedf861a97db"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERIE #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="41" width="46" height="13" uuid="c6a2621a-ed04-45f8-a0a6-2bf3f56eaa63"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MARCA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="80" width="46" height="13" uuid="069efd39-8cbd-4f43-980c-b3dad7534808"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POTENCIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="67" width="46" height="13" uuid="50b905ff-b4ee-47f6-bd35-58c2b67bbd17"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="28" width="75" height="13" uuid="a0a933e9-a483-4d58-8185-ddc37437f579"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TRANSFORMADOR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="54" width="75" height="13" uuid="e90fab43-4535-473c-80d9-c9f396f6add6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroserie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="67" width="75" height="13" uuid="9b74f053-dd4c-40ec-ae1a-60718360e6c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="80" width="75" height="13" uuid="39aa1fb7-2004-445d-a030-af787030d20d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kvaentrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="41" width="75" height="13" uuid="1a115a1d-8a4c-428e-b5f6-6401b85f1d5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{marca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="135" y="15" width="80" height="13" uuid="8518c483-60da-4bbe-8892-6d1c8675e002"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="28" width="80" height="13" uuid="2e3760e1-46f2-4a59-b948-201d42628647"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FASES:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="54" width="80" height="13" uuid="41481099-f37f-41d6-88f3-48694f42f9c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UBICACION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="41" width="80" height="13" uuid="9f302b5b-c44c-4b86-b122-6c8ba2258dd8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TENSION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="80" width="80" height="13" uuid="bbb7f84a-dca5-44e2-b093-d12ecd8cddeb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUESTREADO POR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="67" width="80" height="13" uuid="e6bc102a-1a25-4b1a-89e5-009c98746f68"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLUMEN(L):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="215" y="67" width="72" height="13" uuid="a9400d88-708a-4ec0-9fd0-1e57526aa7dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aceite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="41" width="72" height="13" uuid="50fdb4de-45e4-479d-8b6e-00af2ce875b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tpe}+"/"+$F{tse}+"/"+$F{tte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="15" width="72" height="13" uuid="e1f58d07-387e-4d25-8177-733c692c08ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="28" width="72" height="13" uuid="aff7e54f-e392-4714-973b-59fead844a09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fase}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="215" y="54" width="72" height="13" uuid="e6f08c0b-27bb-4cc3-85da-5e9e04d65a10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PLANTA CDM]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="215" y="80" width="72" height="13" uuid="31dbbd11-d3f7-4b10-8e99-5ffdc6d1c4e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MUESTREADO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="50" y="15" width="75" height="13" uuid="6f487f97-202e-4a24-ad22-580cf9baa3b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TM-"+($P{OT}+$V{REPORT_COUNT})+"-"+new SimpleDateFormat("yy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
