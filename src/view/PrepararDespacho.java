@@ -152,52 +152,49 @@ public class PrepararDespacho extends javax.swing.JFrame {
                 });
             }
             
-            modeloTabla.addTableModelListener(new TableModelListener() {
-                @Override
-                public void tableChanged(TableModelEvent e) {
-                    if(e.getType() == TableModelEvent.UPDATE){
-                        
-                        String val = modeloTabla.getValueAt(e.getFirstRow(), e.getColumn()).toString();
-                        String item = modeloTabla.getValueAt(e.getFirstRow(), 0).toString();
-                        String serie = modeloTabla.getValueAt(e.getFirstRow(), 6).toString();
-                        
-                        if(e.getColumn() == 4){
-                            if(Boolean.parseBoolean(modeloTabla.getValueAt(e.getFirstRow(), 4).toString())){
-                                PESO += (int)modeloTabla.getValueAt(e.getFirstRow(), 19);
-                            }else{
-                                PESO -= (int)modeloTabla.getValueAt(e.getFirstRow(), 19);
+            modeloTabla.addTableModelListener((TableModelEvent e) -> {
+                if(e.getType() == TableModelEvent.UPDATE){
+                    
+                    String val = modeloTabla.getValueAt(e.getFirstRow(), e.getColumn()).toString();
+                    String item = modeloTabla.getValueAt(e.getFirstRow(), 0).toString();
+                    String serie = modeloTabla.getValueAt(e.getFirstRow(), 6).toString();
+                    
+                    if(e.getColumn() == 4){
+                        if(Boolean.parseBoolean(modeloTabla.getValueAt(e.getFirstRow(), 4).toString())){
+                            PESO += (int)modeloTabla.getValueAt(e.getFirstRow(), 19);
+                        }else{
+                            PESO -= (int)modeloTabla.getValueAt(e.getFirstRow(), 19);
+                        }
+                        lblPeso.setText("Peso Total: "+PESO);
+                    }
+                    
+                    if(e.getColumn() == 10){
+                        actualizarSalidas("kvasalida", val, item, serie);
+                    }
+                    
+                    if(e.getColumn() == 12){
+                        String GUARDAR = "";
+                        String t[] = modeloTabla.getValueAt(e.getFirstRow(), 12).toString().split("/");
+                        if(t.length==3){
+                            if(new ConexionBD().GUARDAR("UPDATE transformador SET tps='"+t[0]+"' , tss='"+t[1]+"' , tts='"+t[2]+"' WHERE item='"+modeloTabla.getValueAt(e.getFirstRow(), 0)+"' AND identrada='"+getIDENTRADA()+"' AND numeroserie='"+modeloTabla.getValueAt(e.getFirstRow(), 6)+"' ")){}
+                        }else{
+                            if(new ConexionBD().GUARDAR("UPDATE transformador SET tps='0' , tss='0' , tts='0' WHERE item='"+modeloTabla.getValueAt(e.getFirstRow(), 0)+"' AND identrada='"+IDENTRADA+"' AND numeroserie='"+modeloTabla.getValueAt(e.getFirstRow(), 6)+"' ")){
+                                JOptionPane.showMessageDialog(null, "EL FORMATO DE LA TENSION DEBE COMPONERSE DE 3 TENSIONES SEPARADAS POR EL SIMBOLO /, RELLENAR CON 0(cero), EN CASO DE TENER LAS TRES.", "TENSION NO VÁLIDA", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/recursos/images/advertencia.png")));
+                                modeloTabla.setValueAt("0/0/0", e.getFirstRow(), 11);
                             }
-                            lblPeso.setText("Peso Total: "+PESO);
                         }
-                        
-                        if(e.getColumn() == 10){
-                            actualizarSalidas("kvasalida", val, item, serie);
-                        }
-                        
-                        if(e.getColumn() == 12){
-                            String GUARDAR = "";
-                            String t[] = modeloTabla.getValueAt(e.getFirstRow(), 12).toString().split("/");
-                            if(t.length==3){
-                                if(new ConexionBD().GUARDAR("UPDATE transformador SET tps='"+t[0]+"' , tss='"+t[1]+"' , tts='"+t[2]+"' WHERE item='"+modeloTabla.getValueAt(e.getFirstRow(), 0)+"' AND identrada='"+getIDENTRADA()+"' AND numeroserie='"+modeloTabla.getValueAt(e.getFirstRow(), 6)+"' ")){}
-                            }else{
-                                if(new ConexionBD().GUARDAR("UPDATE transformador SET tps='0' , tss='0' , tts='0' WHERE item='"+modeloTabla.getValueAt(e.getFirstRow(), 0)+"' AND identrada='"+IDENTRADA+"' AND numeroserie='"+modeloTabla.getValueAt(e.getFirstRow(), 6)+"' ")){
-                                    JOptionPane.showMessageDialog(null, "EL FORMATO DE LA TENSION DEBE COMPONERSE DE 3 TENSIONES SEPARADAS POR EL SIMBOLO /, RELLENAR CON 0(cero), EN CASO DE TENER LAS TRES.", "TENSION NO VÁLIDA", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/recursos/images/advertencia.png")));
-                                    modeloTabla.setValueAt("0/0/0", e.getFirstRow(), 11);
-                                }                                
-                            }    
-                        }
-                        
-                        if(e.getColumn() == 14){
-                            actualizarSalidas("serviciosalida", val, item, serie);
-                        }
-                        
-                        if(e.getColumn() == 16){
-                            actualizarSalidas("tipotrafosalida", val, item, serie);
-                        }
-                        
-                        if(e.getColumn() == 18){
-                            actualizarSalidas("observacionsalida", val, item, serie);
-                        }
+                    }
+                    
+                    if(e.getColumn() == 14){
+                        actualizarSalidas("serviciosalida", val, item, serie);
+                    }
+                    
+                    if(e.getColumn() == 16){
+                        actualizarSalidas("tipotrafosalida", val, item, serie);
+                    }
+                    
+                    if(e.getColumn() == 18){
+                        actualizarSalidas("observacionsalida", val, item, serie);
                     }
                 }
             });
@@ -404,6 +401,11 @@ public class PrepararDespacho extends javax.swing.JFrame {
         barra.add(jLabel3);
 
         comboClientes.setMaximumRowCount(12);
+        comboClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboClientesActionPerformed(evt);
+            }
+        });
         barra.add(comboClientes);
         barra.add(jSeparator6);
 
@@ -570,6 +572,12 @@ public class PrepararDespacho extends javax.swing.JFrame {
     private void btnRefrescar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescar3ActionPerformed
         modelo.Metodos.JTableToExcel(tablaTrafos, btnRefrescar3);
     }//GEN-LAST:event_btnRefrescar3ActionPerformed
+
+    private void comboClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClientesActionPerformed
+        // TODO add your handling code here:
+        IDCLIENTE =  ((Cliente)comboClientes.getModel().getSelectedItem()).getIdCliente();
+        cargarComboDespachos();
+    }//GEN-LAST:event_comboClientesActionPerformed
 
     /**
      * @param args the command line arguments
