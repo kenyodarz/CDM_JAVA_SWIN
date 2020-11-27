@@ -704,7 +704,23 @@ import net.sf.jasperreports.view.JasperViewer;
                cjcentrodecostos.setText(rs.getString("centrodecostos"));
                cjcontrato.setText(rs.getString("contrato"));
                //cjcliente.setText(rs.getString("nombrecliente"));
-               comboCliente.addItem(new Cliente(rs.getInt("idcliente"), rs.getString("nombrecliente"), rs.getString("nitcliente")));
+               Cliente clienteSeleccionado = new Cliente(rs.getInt("idcliente"), rs.getString("nombrecliente"), rs.getString("nitcliente"));
+               String query = "SELECT * from cliente";
+               ResultSet rs2 = conexion.CONSULTAR(query);
+               try {
+                   while(rs2.next()){
+                       Cliente resultCliente = new Cliente(rs2.getInt("idcliente"), rs2.getString("nombrecliente"), rs2.getString("nitcliente"));
+                       comboCliente.addItem(resultCliente);
+                       if(resultCliente.getIdCliente() == clienteSeleccionado.getIdCliente()){
+                           comboCliente.setSelectedItem(resultCliente);
+                       }   
+                       //comboCliente.addItem(new Cliente(rs.getInt("idcliente"), rs.getString("nombrecliente"), rs.getString("nitcliente")));     
+                    }
+               } catch (SQLException ex) {
+                    Logger.getLogger(DialogoImprimirRemisionTrafos1.class.getName()).log(Level.SEVERE, null, ex);
+               } finally{
+                    conexion.CERRAR();
+                 }
            }
         } catch (SQLException ex) {
            Logger.getLogger(DialogoImprimirRemisionTrafos1.class.getName()).log(Level.SEVERE, null, ex);
