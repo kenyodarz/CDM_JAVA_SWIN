@@ -730,16 +730,16 @@ public class PROTOS extends javax.swing.JFrame {
                         (kva == 5) ? "280" : 
                                 (kva == 10) ? "320" : 
                                         (kva == 15) ? "350" : 
-                                                (kva == 25) ? "380" : 
-                                                        (kva == 37.5) ? "420" : 
+                                                (kva == 25) ? "603" : 
+                                                        (kva == 37.5) ? "645" : 
                                                                 (kva == 50) ? "450" : 
                                                                         (kva == 75) ? "480" : "0") :
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
                 ((kva == 15) ? "350" : 
                         (kva == 30) ? "500" : 
-                                (kva == 45) ? "600" : 
-                                        (kva == 75) ? "620" : 
-                                                (kva == 112.5) ? "700" : 
+                                (kva == 45) ? "720" : 
+                                        (kva == 75) ? "750" : 
+                                                (kva == 112.5) ? "815" : 
                                                         (kva == 150) ? "750" : 
                                                                 (kva == 225) ? "800" : "0"));
         /* OBTENEMOS EL LARGO SEGUN SU FASE 
@@ -751,16 +751,16 @@ public class PROTOS extends javax.swing.JFrame {
                         (kva == 5) ? "280" : 
                                 (kva == 10) ? "320" : 
                                         (kva == 15) ? "350" : 
-                                                (kva == 25) ? "380" : 
-                                                        (kva == 37.5) ? "420" : 
+                                                (kva == 25) ? "563" : 
+                                                        (kva == 37.5) ? "600" : 
                                                                 (kva == 50) ? "450" : 
                                                                         (kva == 75) ? "480" : "0") : 
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
                 ((kva == 15) ? "280" : 
                         (kva == 30) ? "320" : 
-                                (kva == 45) ? "350" : 
-                                        (kva == 75) ? "380" : 
-                                                (kva == 112.5) ? "430" : 
+                                (kva == 45) ? "950" : 
+                                        (kva == 75) ? "1110" : 
+                                                (kva == 112.5) ? "1100" : 
                                                         (kva == 150) ? "480" : 
                                                                 (kva == 225) ? "520" : "0"));
         /* OBTENEMOS EL ALTO SEGUN SU FASE 
@@ -772,16 +772,16 @@ public class PROTOS extends javax.swing.JFrame {
                         (kva == 5) ? "500" : 
                                 (kva == 10) ? "550" : 
                                         (kva == 15) ? "550" : 
-                                                (kva == 25) ? "550" : 
-                                                        (kva == 37.5) ? "600" : 
+                                                (kva == 25) ? "870" : 
+                                                        (kva == 37.5) ? "903" : 
                                                                 (kva == 50) ? "650" : 
                                                                         (kva == 75) ? "700" : "0") : 
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
                 ((kva == 15) ? "500" : 
                         (kva == 30) ? "500" : 
-                                (kva == 45) ? "550" : 
-                                        (kva == 75) ? "600" : 
-                                                (kva == 112.5) ? "650" : 
+                                (kva == 45) ? "900" : 
+                                        (kva == 75) ? "980" : 
+                                                (kva == 112.5) ? "1050" : 
                                                         (kva == 150) ? "700" : 
                                                                 (kva == 225) ? "750" : "0"));
         /* OBTENEMOS LOS ELEMENTOS SEGUN SU FASE 
@@ -792,10 +792,10 @@ public class PROTOS extends javax.swing.JFrame {
                 ((kva == 50) ? "6" : 
                         (kva == 75) ? "8" : "0") :
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
-                ((kva == 75) ? "6" : 
-                        (kva == 112.5) ? "10" : 
-                                (kva == 150) ? "14" : 
-                                        (kva == 225) ? "18" : "0"));
+                ((kva == 75) ? "2" : 
+                        (kva == 112.5) ? "6" : 
+                                (kva == 150) ? "10" : 
+                                        (kva == 225) ? "14" : "0"));
         /* OBTENEMOS EL LARGO ELEMENTOS SEGUN SU FASE 
          * ENTRAMOS EN DOS SERIES DE SI ANIDADOS DEPENDIENDO DEL LA FASE
          */
@@ -804,7 +804,7 @@ public class PROTOS extends javax.swing.JFrame {
                 ((kva == 50 || kva == 75) ? "300" : "0") :
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
                 ((kva == 75) ? "300" : 
-                        (kva == 112.5) ? "380" : 
+                        (kva == 112.5) ? "300" : 
                                 (kva == 150) ? "300" : 
                                         (kva == 225) ? "300" : "0"));
         /* OBTENEMOS EL ALTO ELEMENTOS SEGUN SU FASE 
@@ -812,15 +812,33 @@ public class PROTOS extends javax.swing.JFrame {
          */
         cjaltoelemento.setText((comboFase.getSelectedIndex() == 0) ? 
                 /* ENTRADOS EN LA CONCIDONAL SI ES VERDADERA ESCOGEMOS EL TRANSFORMADOR MONOFASICO */
-                ((kva == 50) ? "480" : 
-                        (kva == 75) ? "480" : "0") : 
+                ((kva == 50) ? "500" : 
+                        (kva == 75) ? "500" : "0") : 
                 /* SI ES FALSA IGUAL EVALUAMOS EL KVA DEL TRIFASICO */
-                ((kva == 75) ? "480" : 
-                        (kva == 112.5) ? "380" : 
-                                (kva == 150) ? "480" : 
-                                        (kva == 225) ? "480" : "0"));
+                ((kva == 75) ? "500" : 
+                        (kva == 112.5) ? "500" : 
+                                (kva == 150) ? "500" : 
+                                        (kva == 225) ? "500" : "0"));
         /* SELECCIONAMOS EL COLOR VERDE O GRIS SI ES PARA EPM O NO */
         cjcolor.setText((cjcliente.getText().equals("EMPRESAS PUBLICAS DE MEDELLIN S.A E.S.P")) ? "VERDE" : "GRIS");
+        
+        switch(cjcliente.getText()){
+            case "CARIBEMAR DE LA COSTA S.A.S  E.P.S" :
+                cjespesor.setText("150");
+                break;
+            case "CARIBESOL DE LA COSTA S.A.S  E.S.P" :
+                cjespesor.setText("150");
+                break;
+            case "" :
+                cjespesor.setText("150");
+                break;
+            case "AIR-E  S.A.S  E.S.P" : 
+                cjespesor.setText("150");
+                break;
+            default: 
+                cjespesor.setText("110");
+        }
+        //cjespesor.setText();
     }
     /* METODO T 
      * OBTIENE EL VALOR DE UN REGISTRI EN UNA DELDA EN LA TABLA 1
